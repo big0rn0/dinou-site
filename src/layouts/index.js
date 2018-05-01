@@ -2,19 +2,53 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 
-import Navbar from '../components/Navbar'
-import './all.sass'
+import Img from "gatsby-image";
+import './index.css'
 
-const TemplateWrapper = ({ children }) => (
+const Layout = ({ children, data }) => (
   <div>
-    <Helmet title="Home | Gatsby + Netlify CMS" />
-    <Navbar />
-    <div>{children()}</div>
+    <Helmet
+      title={data.site.siteMetadata.title}
+      meta={[
+        { name: 'description', content: 'Sample' },
+        { name: 'keywords', content: 'sample, something' },
+      ]}
+    />
+    <Img
+      title="Under construction"
+      alt="Din Ou's almost there"
+      sizes={data.headerImage.sizes}
+    />
+    <div
+      style={{
+        margin: '0 auto',
+        maxWidth: 960,
+        padding: '0px 1.0875rem 1.45rem',
+        paddingTop: 0,
+      }}
+    >
+      {children()}
+    </div>
   </div>
 )
 
-TemplateWrapper.propTypes = {
+Layout.propTypes = {
   children: PropTypes.func,
 }
 
-export default TemplateWrapper
+export default Layout
+
+export const imageQueryAndSiteTitleQuery = graphql`
+  query SiteTitleQuery {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+    headerImage: imageSharp(id: { regex: "/coming/" }) {
+      sizes(maxWidth: 1240 ) {
+        ...GatsbyImageSharpSizes
+      }
+    }
+  }
+`
