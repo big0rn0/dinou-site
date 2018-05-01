@@ -18,6 +18,13 @@ const Layout = ({ children, data }) => (
       title="Under construction"
       alt="Din Ou's almost there"
       sizes={data.headerImage.sizes}
+      style={{
+        position: "absolute",
+        left: 0,
+        top: 0,
+        width: "100%",
+        height: "100%"
+      }}
     />
     <div
       style={{
